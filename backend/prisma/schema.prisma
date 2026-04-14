@@ -19,3 +19,11 @@ model users {
   apellido  String @db.VarChar(50)
   matricula String @db.VarChar(20)
 }
+
+model register {
+  id        Int    @id @default(autoincrement())
+  nombre    String @db.VarChar(50)
+  apellidos String @db.VarChar(50)
+  correo    String @db.VarChar(30)
+  contrase_a String @map("contraseña") @db.VarChar(255)
+}

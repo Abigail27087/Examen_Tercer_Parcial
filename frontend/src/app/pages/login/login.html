@@ -1,55 +1,49 @@
-<h1>Login Funciona</h1>
-
+<h1 class="title-main">🚀 Acceso al Sistema</h1>
 
 <div class="login-page">
   <div class="login-card">
+
     <!-- Encabezado -->
     <div class="login-header">
-      <div class="logo-icon">👤</div>
-      <h1>Bienvenido</h1>
-      <p>Ingresa tus credenciales para continuar</p>
+      <div class="logo-icon">✨</div>
+      <h1>Iniciar Sesión</h1>
+      <p>Accede con tu cuenta para continuar</p>
     </div>
 
-    <!-- Mensaje de error -->
+    <!-- Error -->
     <div class="alert-error" *ngIf="errorMensaje">
-      <span>⚠️</span> {{ errorMensaje }}
+      ❌ {{ errorMensaje }}
     </div>
 
     <!-- Formulario -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
 
-      <!-- Campo: Usuario -->
+      <!-- Usuario -->
       <div class="form-group">
-        <label for="username">👤 Usuario</label>
+        <label for="username">🧑 Usuario</label>
         <input
           id="username"
           type="text"
           formControlName="username"
-          placeholder="Escribe tu usuario"
+          placeholder="Tu usuario"
           [class.input-error]="f['username'].touched && f['username'].invalid">
 
-        <!-- Mensajes de error -->
         <span class="error-msg"
           *ngIf="f['username'].touched && f['username'].errors?.['required']">
-          El usuario es obligatorio
-        </span>
-
-        <span class="error-msg"
-          *ngIf="f['username'].touched && f['username'].errors?.['minlength']">
-          Mínimo 3 caracteres
+          Campo obligatorio
         </span>
       </div>
 
-      <!-- Campo: Contraseña -->
+      <!-- Contraseña -->
       <div class="form-group">
-        <label for="password">🔒 Contraseña</label>
+        <label for="password">🔑 Contraseña</label>
 
         <div class="input-with-btn">
           <input
             id="password"
             [type]="mostrarPass ? 'text' : 'password'"
             formControlName="password"
-            placeholder="Escribe tu contraseña"
+            placeholder="Tu contraseña"
             [class.input-error]="f['password'].touched && f['password'].invalid">
 
           <button type="button" class="btn-toggle" (click)="togglemostrarPass()">
@@ -59,13 +53,13 @@
 
         <span class="error-msg"
           *ngIf="f['password'].touched && f['password'].errors?.['required']">
-          La contraseña es obligatoria
+          Campo obligatorio
         </span>
       </div>
 
       <!-- Botón -->
       <button type="submit" class="btn-login" [disabled]="cargando">
-        Iniciar sesión
+        🚀 Entrar ahora
       </button>
 
     </form>

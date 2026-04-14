@@ -32,3 +32,20 @@ app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
     console.log('BD : databaseproject');
 });
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+async function crearUsuario() {
+  const nuevo = await prisma.register.create({
+    data: {
+      // ajusta según tus campos
+      name: "Abigail",
+      email: "abi@gmail.com"
+    }
+  });
+
+  console.log("Usuario creado:", nuevo);
+}
+
+crearUsuario();
