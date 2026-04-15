@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../services/auth';
+import { AuthService  } from '../../services/auth';
 import { UsuariosService } from '../../services/usuarios';
 import { CommonModule } from '@angular/common';
 
@@ -36,7 +36,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private Auth: Auth,
+    private Auth: AuthService,
     private usuariosService: UsuariosService
   ) {}
 

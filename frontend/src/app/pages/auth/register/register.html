@@ -1,0 +1,52 @@
+<div class="auth-container">
+
+  <form class="auth-card" (ngSubmit)="onRegister()">
+
+    <h2>Crear cuenta</h2>
+
+    <div class="input-group">
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="usuario.nombre"
+        required
+        placeholder="Nombre de usuario"
+      />
+    </div>
+
+    <div class="input-group">
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="usuario.email"
+        required
+        placeholder="Correo electrónico"
+      />
+    </div>
+
+    <div class="input-group">
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="usuario.password"
+        required
+        placeholder="Contraseña"
+      />
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="cargando">
+      Registrarse
+    </button>
+
+    <p class="switch-auth">
+      ¿Ya tienes cuenta?
+      <span (click)="irALogin()">Iniciar sesión</span>
+    </p>
+
+    <p class="error" *ngIf="errorMensaje">
+      {{ errorMensaje }}
+    </p>
+
+  </form>
+
+</div>

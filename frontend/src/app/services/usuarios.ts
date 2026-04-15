@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Auth } from '../services/auth';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UsuariosService {
 
   constructor(
     private http: HttpClient,
-    private Auth: Auth
+    private Auth: AuthService
   ) {}
 
   // ─── HEADERS con token JWT ────────────────────
@@ -48,6 +48,19 @@ export class UsuariosService {
   // ─── ACTUALIZAR ───────────────────────────────
   actualizar(id: number, datos: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, datos, {
+      headers: this.getHeaders()
+    });
+  }
+
+  // ─── ELIMINAR ───────────────────────────────
+  eliminar(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  getUsuario(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/me`, {
       headers: this.getHeaders()
     });
   }

@@ -1,44 +1,69 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { environment } from '../environments/environment';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
+export class AuthService {
 
-export class Auth {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = 'http://localhost:3000/auth'; // cambia si tu backend usa otro puerto
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
+  // LOGIN
   login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, { username, password }).pipe(
-      tap((respuesta: any) => {
-        localStorage.setItem('token', respuesta.token);
-        localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
+
+    return this.http.post<any>(`${this.apiUrl}/login`, {
+      username,
+      password
+    }).pipe(
+
+      tap(res => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+        }
       })
+
     );
+
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    this.router.navigate(['/login']);
+  // REGISTRO
+  registro(data: any): Observable<any> {
+
+    return this.http.post(`${this.apiUrl}/registro`, data);
+
   }
 
+  // VERIFICAR SI ESTÁ LOGUEADO
   estaAutenticado(): boolean {
+
     return !!localStorage.getItem('token');
+
+  }
+
+  // LOGOUT
+  logout(): void {
+
+    localStorage.removeItem('token');
+
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+
+    return localStorage.getItem('token'); 
   }
 
-  getUsuario(): any {
-    const u = localStorage.getItem('usuario');
-    return u ? JSON.parse(u) : null;
+  getAuthHeaders(): { [header: string]: string } {
+
+    const token = this.getToken();
+    return token ? { 'Authorization': `Bearer ${token}` } : {};
   }
+
+  getUsuario(): Observable<any> {
+
+    return this.http.get(`${this.apiUrl}/me`, { headers: this.getAuthHeaders() });  
+  }
+
 }
